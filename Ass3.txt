@@ -1,0 +1,518 @@
+Ans1. PreparedStatement: The Statement interface provides methods to execute queries with the database.The statement interface is a factory of ResultSet i.e. it provides factory method to get the object of ResultSet.
+The PreparedStatement interface is a subinterface of Statement. It is used to execute parameterized query.The prepareStatement() method of Connection interface is used to return the object of PreparedStatement. 
+public PreparedStatement prepareStatement(String query)throws SQLException{}
+
+
+Example of PreparedStatement interface that updates the record:
+
+PreparedStatement stmt=con.prepareStatement("update emp set name=? where id=?");  
+stmt.setString(1,"Sonoo");//1 specifies the first parameter in the query i.e. name  
+stmt.setInt(2,101);  
+  
+int i=stmt.executeUpdate();  
+System.out.println(i+" records updated"); 
+
+ResultSetMetaData Interface: The metadata means data about data i.e. we can get further information from the data.If you have to get metadata of a table like total number of column, column name, column type etc. , ResultSetMetaData interface is useful because it provides methods to get metadata from the ResultSet object.
+The getMetaData() method of ResultSet interface returns the object of ResultSetMetaData.
+public ResultSetMetaData getMetaData()throws SQLException
+
+
+Example of ResultSetMetaData interface :
+import java.sql.*;  
+class Rsmd{  
+public static void main(String args[]){  
+try{  
+Class.forName("oracle.jdbc.driver.OracleDriver");  
+Connection con=DriverManager.getConnection(  
+"jdbc:oracle:thin:@localhost:1521:xe","system","oracle");  
+  
+PreparedStatement ps=con.prepareStatement("select * from emp");  
+ResultSet rs=ps.executeQuery();  
+ResultSetMetaData rsmd=rs.getMetaData();  
+  
+System.out.println("Total columns: "+rsmd.getColumnCount());  
+System.out.println("Column Name of 1st column: "+rsmd.getColumnName(1));  
+System.out.println("Column Type Name of 1st column: "+rsmd.getColumnTypeName(1));  
+  
+con.close();  
+}catch(Exception e){ System.out.println(e);}  
+}  
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans2.i> DDL: DDL is short name of Data Definition Language, which deals with database schemas and descriptions, of how the data should reside in the database.
+
+1. CREATE:to create database and its objects like (table, index, views, store procedure, function, and triggers)
+2. ALTER: alters the structure of the existing database
+3. DROP: delete objects from the database  
+4. TRUNCATE - remove all records from a table, including all spaces allocated for the records are removed
+5. COMMENT - add comments to the data dictionary
+6. RENAME - rename an object
+
+// Create a SQL string
+String dropSql = "DROP TABLE Reviews";
+
+stmt = conn.createStatement();
+// Execute the query
+boolean result = stmt.execute(dropSql);
+
+// Get the result of the drop operation
+if(result)
+{
+    // Its a result set
+    System.out.println("Atleast one result set has been returned. Loop through them");
+}
+else
+{
+    // Its an update count or no result
+    Integer updateCnt = stmt.getUpdateCount();
+
+    if(updateCnt == -1)
+    {
+        // No results
+        System.out.println("No results returned by the query");
+    }
+    else
+    {
+        // Update Count 
+        System.out.println("Update Count: " + updateCnt);
+    }
+}
+
+
+iii>DCL: DCL is short name of Data Control Language which includes commands such as GRANT and mostly concerned with rights, permissions and other controls of the database system.
+
+GRANT - allow users access privileges to database
+REVOKE - withdraw users access privileges given by using the GRANT command
+
+class SomeClass {
+  private Resource resource = null;
+  public Resource getResource() {
+    if (resource == null) {
+      synchronized {
+        if (resource == null) 
+          resource = new Resource();
+      }
+    }
+    return resource;
+  }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans3.In Java System.out.println() will print to the standard out of the system you are using. On the other hand, System.err.println() will print to the standard error.
+
+If you are using a simple Java console application, both outputs will be the same (the command line or console) but you can reconfigure the streams so that for example, System.out still prints to the console but System.err writes to a file.
+
+System.in:
+System.in is an InputStream which is typically connected to keyboard input of console programs. System.in is not used as often since data is commonly passed to a command line Java application via command line arguments, or configuration files. In applications with GUI the input to the application is given via the GUI. This is a separate input mechanism from Java IO.
+
+System.out:
+System.out is a PrintStream. System.out normally outputs the data you write to it to the console. This is often used from console-only programs like command line tools. This is also often used to print debug statements of from a program (though it may arguably not be the best way to get debug info out of a program).
+
+System.err:
+System.err is a PrintStream. System.err works like System.out except it is normally only used to output error texts. Some programs (like Eclipse) will show the output to System.err in red text, to make it more obvious that it is error text. 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans4.The java.lang.System class contains several useful utilities for mostly used operation. System class cannot be instantiated.
+
+Facilities provided by System:
+
+1. standard output
+
+2. error output streams
+
+3. standard input and access to externally defined properties and environment variables.
+
+4. A utility for quickly copying particular portion of an array.
+
+5. used to loading files and libraries.
+
+* Standard Fields of System class are:
+
+1. static PrintStream err -- "standard" error output stream.
+
+2. static InputStream in -- "standard" input stream.
+
+3. static PrintStream out -- "standard" output stream.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans5. OutputStreamWriter is the abstract parent class of FileWriter. OutputStreamWriter class connects character streams to byte streams. It encodes Characters into bytes using a specified charset.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans6. FileReader is used to read streams of characters from a file
+
+--------------------------------------------------------------------------------------------------------------
+
+Ans7.  FileInputStream is used to read streams of raw bytes from a file
+
+------------------------------------------------------------------------------------------------------------
+
+Ans8. FileInputStream: FileInputStream is useful to read data from a file in the form of sequence of bytes. FileInputStream is meant for reading streams of raw bytes such as image data. For reading streams of characters, consider using FileReader.
+
+FileOutputStream: Java FileOutputStream is an output stream used for writing data to a file.
+If you have to write primitive values into a file, use FileOutputStream class. You can write byte-oriented as well as character-oriented data through FileOutputStream class. But, for character-oriented data, it is preferred to use FileWriter than FileOutputStream.
+
+RandonAccessFile: The Java.io.RandomAccessFile class file behaves like a large array of bytes stored in the file system.Instances of this class support both reading and writing to a random access file.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans9. 
+1. Channels: In Java NIO, the channel is a medium used to transports the data efficiently between the entity and byte buffers. It reads the data from an entity and places it inside buffer blocks for consumption.
+Channels act as gateway provided by java NIO to access the I/O mechanism. Usually channels have one-to-one relationship with operating system file descriptor for providing the platform independence operational feature.
+
+2. Buffer: For every primitive type there is a buffer type and all buffer classes can implement the buffer interface. The mostly used buffer type is ByteBuffer.buffer's cover the basic data types that we can send via I/O: characters, double, int, long, byte, short and float.
+In NIO the data transfer take place by using the buffers implemented in java.nio.Buffer class. It is similar to array, and having a fixed capacity.
+
+
+Example:
+
+import java.io.FileInputStream;  
+import java.io.FileOutputStream;  
+import java.io.IOException;  
+import java.nio.ByteBuffer;  
+import java.nio.channels.ReadableByteChannel;  
+import java.nio.channels.WritableByteChannel;  
+ public class Index {  
+    public static void main(String args[]) throws IOException {  
+    FileInputStream input = new FileInputStream ("D:\\testin.txt"); // Path of Input text file  
+        ReadableByteChannel source = input.getChannel();  
+    FileOutputStream output = new FileOutputStream ("D:\\testout.txt"); // Path of Output text file  
+        WritableByteChannel destination = output.getChannel();  
+  copyData(source, destination);  
+  source.close();  
+        destination.close();  
+    }  
+ private static void copyData(ReadableByteChannel src, WritableByteChannel dest) throws IOException   
+    {  
+        ByteBuffer buffer = ByteBuffer.allocateDirect(20 * 1024);  
+   while (src.read(buffer) != -1)   
+        {  
+            // The buffer is used to drained  
+            buffer.flip();  
+            // keep sure that buffer was fully drained  
+            while (buffer.hasRemaining())   
+            {  
+                dest.write(buffer);  
+            }  
+            buffer.clear(); // Now the buffer is empty, ready for the filling  
+        }  
+    }  
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans 10. 
+
+1. Checked: are the exceptions that are checked at compile time. If some code within a method throws a checked exception, then the method must either handle the exception or it must specify the exception using throws keyword
+
+For example, consider the following Java program that opens file at locatiobn “C:\test\a.txt” and prints first three lines of it. The program doesn’t compile, because the function main() uses FileReader() and FileReader() throws a checked exception FileNotFoundException. It also uses readLine() and close() methods, and these methods also throw checked exception IOException
+
+import java.io.*;
+ 
+class Main {
+    public static void main(String[] args) {
+        FileReader file = new FileReader("C:\\test\\a.txt");
+        BufferedReader fileInput = new BufferedReader(file);
+         
+        // Print first 3 lines of file "C:\test\a.txt"
+        for (int counter = 0; counter < 3; counter++) 
+            System.out.println(fileInput.readLine());
+         
+        fileInput.close();
+    }
+}
+
+2. Unchecked:Unchecked are the exceptions that are not checked at compiled time.In Java exceptions under Error and RuntimeException classes are unchecked exceptions, everything else under throwable is checked.
+
+Consider the following Java program. It compiles fine, but it throws ArithmeticException when run. The compiler allows it to compile, because ArithmeticException is an unchecked exception.
+
+class Main {
+   public static void main(String args[]) {
+      int x = 0;
+      int y = 10;
+      int z = y/x;
+  }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans11. Throw: 
+
+1.Java throw keyword is used to explicitly throw an exception.
+2.Checked exception cannot be propagated using throw only.  
+3.Throw is followed by an instance.
+4.Throw is used within the method.
+5.You cannot throw multiple exceptions.
+
+Throws:
+1.Java throws keyword is used to declare an exception
+2.Checked exception can be propagated with throws.
+3.Throws is followed by class.
+4.Throws is used with the method signature.
+5.You can declare multiple exceptions e.g.
+public void method()throws IOException,SQLException.
+
+Java throw example:
+void m(){  
+throw new ArithmeticException("sorry");  
+}  
+
+Java throws example:
+void m()throws ArithmeticException{  
+//method code  
+}  
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+12.Nested try catch block in Java: When a try catch block is present in another try block then it is called the nested try catch block. Each time a try block does not have a catch handler for a particular exception, then the catch blocks of parent try block are inspected for that exception, if match is found that that catch block executes.
+If neither catch block nor parent catch block handles exception then the system generated message would be shown for the exception, similar to what we see when we don’t handle exception.
+package MyPack;
+
+public class ExceptionDemo {
+
+public static void main(String[] args) 
+{
+try
+{
+try
+{
+System.out.println("to be divided");
+int a = 78/0;
+}
+catch(ArithmeticException e)
+{
+System.out.println(e.getMessage());
+}
+
+try
+{
+int arr[] = new int[4];
+arr[5]=46;
+
+}
+catch(ArrayIndexOutOfBoundsException e)
+{System.out.println(e.getMessage());
+
+}
+
+}
+catch(Exception e)
+{
+System.out.println(e.getMessage());
+}
+
+}
+
+}
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+13.Multithreading:-
+-----------------
+This is the most advance way of having parallel execution. In this a single process is segmented into multiple threads(sub-processes) and redirects each of the threads to each CPU cores.
+
+Multitasking:-
+---------------
+This is a very generalised terM. It refers to having multiple programs, processes, tasks,threads.
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+14.A deque, also known as a double-ended queue, is an ordered collection of items similar to the queue. It has two ends, a front and a rear, and the items remain positioned in the collection. What makes a deque different is the unrestrictive nature of adding and removing items. New items can be added at either the front or the rear. Likewise, existing items can be removed from either end. In a sense, this hybrid linear structure provides all the capabilities of stacks and queues in a single data structure.It is important to note that even though the deque can assume many of the characteristics of stacks and queues, it does not require the LIFO and FIFO orderings that are enforced by those data structures. It is up to you to make consistent use of the addition and removal operations.
+
+void insertfront(int key)
+    {
+        // check whether Deque if  full or not
+        if (isFull())
+        {
+            System.out.println("Overflow"); 
+            return;
+        }
+  
+        // If queue is initially empty
+        if (front == -1)
+        {
+            front = 0;
+            rear = 0;
+        }
+         
+        // front is at first position of queue
+        else if (front == 0)
+            front = size - 1 ;
+  
+        else // decrement front end by '1'
+            front = front-1;
+  
+        // insert current element into Deque
+        arr[front] = key ;
+    }
+  
+    // function to inset element at rear end
+    // of Deque.
+    void insertrear(int key)
+    {
+        if (isFull())
+        {
+            System.out.println(" Overflow ");
+            return;
+        }
+  
+        // If queue is initially empty
+        if (front == -1)
+        {
+            front = 0;
+            rear = 0;
+        }
+  
+        // rear is at last position of queue
+        else if (rear == size-1)
+            rear = 0;
+  
+        // increment rear end by '1'
+        else
+            rear = rear+1;
+         
+        // insert current element into Deque
+        arr[rear] = key ;
+    }
+  
+    // Deletes element at front end of Deque
+    void deletefront()
+    {
+        // check whether Deque is empty or not
+        if (isEmpty())
+        {
+            System.out.println("Queue Underflow\n");
+            return ;
+        }
+  
+        // Deque has only one element
+        if (front == rear)
+        {
+            front = -1;
+            rear = -1;
+        }
+        else
+            // back to initial position
+            if (front == size -1)
+                front = 0;
+  
+            else // increment front by '1' to remove current
+                // front value from Deque
+                front = front+1;
+    }
+  
+    // Delete element at rear end of Deque
+    void deleterear()
+    {
+        if (isEmpty())
+        {
+            System.out.println(" Underflow");
+            return ;
+        }
+  
+        // Deque has only one element
+        if (front == rear)
+        {
+            front = -1;
+            rear = -1;
+        }
+        else if (rear == 0)
+            rear = size-1;
+        else
+            rear = rear-1;
+    }
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+15. Generics: The idea is to allow type (Integer, String, … etc and user defined types) to be a parameter to methods, classes and interfaces. For example, classes like HashSet, ArrayList, HashMap, etc use generics very well. We can use them for any type.
+
+
+// A Simple Java program to show multiple
+// type parameters in Java Generics
+ 
+// We use < > to specify Parameter type
+class Test<T, U>
+{
+    T obj1;  // An object of type T
+    U obj2;  // An object of type U
+ 
+    // constructor
+    Test(T obj1, U obj2)
+    {
+        this.obj1 = obj1;
+        this.obj2 = obj2;
+    }
+ 
+    // To print objects of T and U
+    public void print()
+    {
+        System.out.println(obj1);
+        System.out.println(obj2);
+    }
+}
+ 
+// Driver class to test above
+class Main
+{
+    public static void main (String[] args)
+    {
+        Test <String, Integer> obj =
+            new Test<String, Integer>("GfG", 15);
+ 
+        obj.print();
+    }
+}
+
+1.Bounded Type Parameters
+There may be times when you want to restrict the types that can be used as type arguments in a parameterized type. For example, a method that operates on numbers might only want to accept instances of Number or its subclasses.
+
+2.Multiple Bounds
+The preceding example illustrates the use of a type parameter with a single bound, but a type parameter can have multiple bounds:
+<T extends B1 & B2 & B3>
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans 16.Map Interface: The java.util.Map interface represents a mapping between a key and a value. The Map interface is not a subtype of the Collection interface. Therefore it behaves a bit different from the rest of the collection types.
+
+A Map cannot contain duplicate keys and each key can map to at most one value. Some implementations allow null key and null value (HashMap and LinkedHashMap) but some do not (TreeMap).
+
+The order of a map depends on specific implementations, e.g TreeMap and LinkedHashMap have predictable order, while HashMap does not.
+Exampled class that implements this interface is HashMap, TreeMap and LinkedHashMap.
+
+Methods of Map:
+
+public Object put(Object key, Object value) :- is used to insert an entry in this map.
+public void putAll(Map map) :- is used to insert the specified map in this map.
+public Object remove(Object key) :- is used to delete an entry for the specified key.
+public Object get(Object key) :- is used to return the value for the specified key.
+public boolean containsKey(Object key) :- is used to search the specified key from this map.
+public Set keySet() :- returns the Set view containing all the keys.
+public Set entrySet() :- returns the Set view containing all the keys and values.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans 17.
+
+Arraylist:
+1. ArrayList internally uses dynamic array to store the elements.	
+2. Manipulation with ArrayList is slow because it internally uses array. If any element is removed from the array, all the bits are shifted in memory.
+3. ArrayList class can act as a list only because it implements List only.
+4. ArrayList is better for storing and accessing data.
+
+LinkedList
+1. LinkedList internally uses doubly linked list to store the elements.
+2. Manipulation with LinkedList is faster than ArrayList because it uses doubly linked list so no bit shifting is required in memory.
+3. LinkedList class can act as a list and queue both because it implements List and Deque interfaces.
+4. LinkedList is better for manipulating data.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Ans 18.n Java, "normal" arrays are fixed-size. You have to give them a size and can't expand them or contract them. To change the size, you have to make a new array and copy the data you want - which is inefficient and a pain for you.
+
+Fortunately, there are all kinds of built-in classes that implement common data structures, and other useful tools too. You'll want to check the Java 6 API for a full list of them.
+
+One caveat: ArrayList can only hold objects (e.g. Integers), not primitives (e.g. ints). In MOST cases, autoboxing/autounboxing will take care of this for you silently, but you could get some weird behavior depending on what you're doing.
+
+(*)ArrayList:
+The ArrayList class extends AbstractList and implements the List interface. ArrayList supports dynamic arrays that can grow as needed. Standard Java arrays are of a fixed length. After arrays are created, they cannot grow or shrink, which means that you must know in advance how many elements an array will hold.
+

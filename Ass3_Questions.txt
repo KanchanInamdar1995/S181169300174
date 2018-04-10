@@ -1,0 +1,26 @@
+1. Write a note on PreparedStatement and ResultSetMetaData interfaces with code snippets.
+2. Write a note on DDL, DML, DQL, DDL with code snippets.
+3. What is the difference between System.out ,System.err and System.in?
+4. What is the purpose of the System class?
+5. Which is the abstract parent class of FileWriter ?
+6. Which class is used to read streams of characters from a file?
+7. Which class is used to read streams of raw bytes from a file?
+8. What are the differences between FileInputStream/FileOutputStream and RandomAccessFile
+9. Write a note on Channels and Buffer with example.
+10. What is the difference between System.out ,System.err and System.in?
+11. What is the purpose of the System class?
+12. Which is the abstract parent class of FileWriter ?
+13. Which class is used to read streams of characters from a file?
+14. Which class is used to read streams of raw bytes from a file?
+15. What are the differences between FileInputStream/FileOutputStream and RandomAccessFile
+16. Write a note on Channels and Buffer with example.
+17. Write the difference between checked and unchecked exception with example code
+18. Write the difference between throw and throws with example code
+19. Write a note or nested try…catch block with example code
+20. Write a note on MultiThreading and MultiTasking
+21. Write a short note on Deque and give example code.
+22. Write a short note on Generics an all types of Parameters used in Generics with example code.
+23. Write a short note on Map Interface.
+24. Write the difference between LinkedList and ArrayList.
+25. Write a note on Dynamic array in java. 
+
